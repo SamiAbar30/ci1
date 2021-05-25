@@ -14,13 +14,18 @@
          $this->load->library('session');
          $this->load->helper(array('form', 'url'));
          $this->session;
-       // test
       }
 
       public  function index($start = 0)
-      {
+      {if(isset($_SESSION['id'])){
          $data['newsNAV_id'] = $this->Favoret->get_FAV_NEW_BY_USER($_SESSION['id']);
          $data['newsNAV'] = $this->Favoret->get_news_FAV($_SESSION['id']);
+      }
+      else
+      {
+         $data['newsNAV_id']=array();
+         $data['newsNAV']=array(); 
+      }
          $data['news_count'] = $this->News_model->get_count();
          $data['news'] = $this->News_model->get_news_index($start);
          $data['title'] = 'News archive';
@@ -58,7 +63,6 @@
 
       public function create()
       {
-
          $data['Categore'] = $this->Categore_model->get_categore();
          $this->load->helper('form');
          $this->load->library('form_validation');
@@ -78,15 +82,14 @@
                $this->load->view('news/create', $data);
                $this->load->view('templates/footer');
             }
-         } else {
-
+         }
+         else {
             $data = array('upload_data' => $this->upload->data());
             $user_id = $this->News_model->newsUA($data['upload_data']['file_name']);
             $checkbox = $_POST['check'];
             for ($i = 0; $i < count($checkbox); $i++) {
                $category_id = $checkbox[$i];
-               $this->Categore_news_model->multisave($user_id, $category_id); //Call the modal
-
+               $this->Categore_news_model->multisave($user_id, $category_id);
             }
             echo "Data added successfully!";
             redirect('News/index');
@@ -99,10 +102,8 @@
          $data['title'] = 'MYnews';
          $data['Categore'] = $this->Categore_model->get_categore();
          $this->load->view('templates/header', $data);
-         
          $this->load->view('news/MYnews', $data);
-         $this->load->view('templates/footer');
-         
+         $this->load->view('templates/footer'); 
       }
       public function ADDFAV($id_new = null)
       {
@@ -139,8 +140,8 @@
       }
 
 
-      public function deletnews($id)
-    {
+   public function deletnews($id)
+   {
    $this->News_model->delete_item($id);
    redirect("News/index");
    }
