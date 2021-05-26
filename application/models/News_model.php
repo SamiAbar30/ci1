@@ -11,6 +11,12 @@ class News_model extends CI_Model
     {
         return $this->db->count_all('news');
     }
+    public function get_top_news()
+    {
+
+        $query = $this->db->query("SELECT * FROM `news` LIMIT 3");
+         return $query->result_array();
+    }
     public function get_news_id($id = false)
     {
 

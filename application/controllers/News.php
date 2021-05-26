@@ -17,15 +17,16 @@
       }
 
       public  function index($start = 0)
-      {if(isset($_SESSION['id'])){
-         $data['newsNAV_id'] = $this->Favoret->get_FAV_NEW_BY_USER($_SESSION['id']);
-         $data['newsNAV'] = $this->Favoret->get_news_FAV($_SESSION['id']);
-      }
-      else
       {
-         $data['newsNAV_id']=array();
-         $data['newsNAV']=array(); 
-      }
+         if (isset($_SESSION['id'])) {
+            $data['newsNAV_id'] = $this->Favoret->get_FAV_NEW_BY_USER($_SESSION['id']);
+            $data['newsNAV'] = $this->Favoret->get_news_FAV($_SESSION['id']);
+         } else {
+            $data['newsNAV_id'] = array();
+            $data['newsNAV'] = array();
+           
+         }
+         $data['newsNAVdefult'] =$this->News_model->get_top_news();
          $data['news_count'] = $this->News_model->get_count();
          $data['news'] = $this->News_model->get_news_index($start);
          $data['title'] = 'News archive';
@@ -63,6 +64,7 @@
 
       public function create()
       {
+         if (isset($_SESSION['email'])) {
          $data['Categore'] = $this->Categore_model->get_categore();
          $this->load->helper('form');
          $this->load->library('form_validation');
@@ -82,8 +84,7 @@
                $this->load->view('news/create', $data);
                $this->load->view('templates/footer');
             }
-         }
-         else {
+         } else {
             $data = array('upload_data' => $this->upload->data());
             $user_id = $this->News_model->newsUA($data['upload_data']['file_name']);
             $checkbox = $_POST['check'];
@@ -94,26 +95,41 @@
             echo "Data added successfully!";
             redirect('News/index');
          }
+      } else {
+         redirect("News/index");
+      }
       }
 
       public function MYnews()
       {
-         $data['news'] = $this->News_model->get_news_by_id($_SESSION['id']);
-         $data['title'] = 'MYnews';
-         $data['Categore'] = $this->Categore_model->get_categore();
-         $this->load->view('templates/header', $data);
-         $this->load->view('news/MYnews', $data);
-         $this->load->view('templates/footer'); 
+         if (isset($_SESSION['email'])) {
+            $data['news'] = $this->News_model->get_news_by_id($_SESSION['id']);
+            $data['title'] = 'MYnews';
+            $data['Categore'] = $this->Categore_model->get_categore();
+            $this->load->view('templates/header', $data);
+            $this->load->view('news/MYnews', $data);
+            $this->load->view('templates/footer');
+         } else {
+            redirect("News/index");
+         }
       }
       public function ADDFAV($id_new = null)
       {
-         $this->Favoret->ADD_FAV($id_new, $_SESSION['id']);
-         redirect('News/index');
+         if (isset($_SESSION['email'])) {
+            $this->Favoret->ADD_FAV($id_new, $_SESSION['id']);
+            redirect('News/index');
+         } else {
+            redirect("News/index");
+         }
       }
       public function REMOVEFAV($id_new = null)
       {
-         $this->Favoret->REMOVE_FAV($id_new, $_SESSION['id']);
-         redirect('News/index');
+         if (isset($_SESSION['email'])) {
+            $this->Favoret->REMOVE_FAV($id_new, $_SESSION['id']);
+            redirect('News/index');
+         } else {
+            redirect("News/index");
+         }
       }
       public function editnews($id)
       {
@@ -140,11 +156,11 @@
       }
 
 
-   public function deletnews($id)
-   {
-   $this->News_model->delete_item($id);
-   redirect("News/index");
-   }
+      public function deletnews($id)
+      {
+         $this->News_model->delete_item($id);
+         redirect("News/index");
+      }
    }
 
 

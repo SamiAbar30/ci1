@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)https://getbootstrap.com/docs/4.0/examples/blog/ -->
 <html lang="en">
 
 <head>
@@ -10,10 +9,9 @@
   <meta name="author" content="">
   <link rel="stylesheet" href="<?php echo base_url("assets/blog.css") ?>">
   <link rel="stylesheet" href="<?php echo base_url("assets/album.css") ?>">
-
-  <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
-
-  <title>Blog Template for Bootstrap</title>
+  <link rel="icon" href="<?php echo base_url("assets/icon/icon.ico") ?>">
+ 
+  <title>SAMI</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/blog/">
 

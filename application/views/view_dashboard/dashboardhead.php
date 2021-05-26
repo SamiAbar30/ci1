@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
-
-  <title>Dashboard Template for Bootstrap</title>
+  <link rel="icon" href="<?php echo base_url("assets/icon/icon.ico") ?>">
+ 
+  <title>Dashboard</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
   <!-- Latest compiled and minified CSS -->
@@ -58,7 +58,7 @@
 
 <body>
   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">Company name</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://getbootstrap.com/docs/4.0/examples/dashboard/#">Dashboard</a>
 
     <div class=" d-flex justify-content-end align-items-center dropdown">
       <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
